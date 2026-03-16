@@ -18,20 +18,26 @@ The flag is the owner’s identity in the form firstname_lastname
 
 ### Step 1 — Image Identification
 - Command: `file usb.image`
+
 ![info of image file](./screenshots/file.png)
+
 - Result: FAT filesystem
 
 ### Step 2 — File Listing
 - Command: `fls -r usb.image`
+
 ![fls result](./screenshots/fls.png)
+
 - Found deleted file: `anonyme.png` (inode 5)
 
 ### Step 3 — File Recovery
 - Command: `icat usb.image 5 > anonyme.png`
 - Result: PNG recovered successfully
 
+
 ### Step 4 — Metadata Analysis
 - Command: `exiftool anonyme.png`
+
 ![exiftool result](./screenshots/exiftool.png)
 
 ## Flag
