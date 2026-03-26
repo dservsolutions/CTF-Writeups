@@ -15,7 +15,7 @@ Download the encoded data here: Logs Data. Be prepared—the file is large, and 
 
 ## Findings
 
-### Step 1 — Start by understanding what we are dealing with.
+### Step 1 — Start by understanding what's we are dealing with.
 
 - Command: `file logs.txt` and `wc logs.txt`
 
@@ -30,9 +30,9 @@ dig what;s inside with the command below.
 
 ![head result](./screenshots/head_logsfile.png)
 
-- Result: Enormous block of encoded text. We need to identify the type of encoded has the file.
+- Result: We can see it's a plain text file containing a large block of characters.
 
-### Step 2 — Identiying the type of Encoding 
+### Step 2 — Identifying the type of Encoding 
 
 Let's identify the file using two methods Hex(only) or Base64.
 
@@ -40,7 +40,7 @@ Let's identify the file using two methods Hex(only) or Base64.
 
 - Command: `head -1 logs.txt | grep -P '^[0-9a-fA-F]+$'`
 
--Result: None
+- Result: None
 
 - Base64 characters are A-Z, a-z, 0-9, +, /, ends with = or ==
 
@@ -54,15 +54,15 @@ Let's identify the file using two methods Hex(only) or Base64.
 
 ### Step 3 - Decoding the File
 
-After Identifying the type of encoding, proceeds to decode using the following command.
+After identifying the encoding type, we proceed to decode the file.
 
-Command: `base64 -d logs.txt > decode`
+- Command: `base64 -d logs.txt > decode`
 
 ![decoding ](./screenshots/decoding_file_command.png)
 
-Result : File called decode, let's check the type of file with the command below.
+- Result : File called decode, let's check the type of file with the command below.
 
-Command: `file decode`
+- Command: `file decode`
 
 ![type of file](./screenshots/type_of_file.png)
 
@@ -70,7 +70,7 @@ Command: `file decode`
 
 ![file](./screenshots/img.png)
 
-- Result: At the botton of the image we can see a long chain of string. let's check out at
+- Result: At the bottom of the image we can see a long chain of string. let's check out at
 step four.
 
 ### Step 4 - Checking the String with CyberChef .
@@ -79,7 +79,7 @@ step four.
 
 ![info](./screenshots/magic_mode.png)
 
-- Result : After use the Magic recipe we obtain the type  of encoded(Hex encoded) and the flag showed below.
+- Result : After use the Magic recipe we we identified the encoding as hexadecimal.
 
 ## Flag
 
@@ -87,4 +87,4 @@ step four.
 
 ## Conclusion
 
-This challenge demostrate that a file can be hide in another type of file and the message provide in the same can be coded. The same way we need to be carefull with the type if file that we download in ours machine.
+This challenge demonstrates that data can be hidden inside another file type, and that hidden messages can themselves be encoded. It's a good reminder to be careful about the files we download to our machines, and to always inspect files beyond their surface appearance.
