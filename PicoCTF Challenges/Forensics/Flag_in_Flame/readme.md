@@ -79,7 +79,7 @@ step four.
 
 ![info](./screenshots/magic_mode.png)
 
-- Result : After use the Magic recipe we we identified the encoding as hexadecimal.
+- Result : After use the Magic recipe we identified the encoding as hexadecimal.
 
 ## Flag
 
