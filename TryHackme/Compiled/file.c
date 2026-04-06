@@ -1,19 +1,19 @@
-#include <cstdio>
-    main(void)
+undefined8 main(void)
 
 {
-  int iVar1;
-  char local_28 [32];
+  int Comparistion_diff;
+  char password [32];
   
   fwrite("Password: ",1,10,stdout);
-  __isoc99_scanf("DoYouEven%sCTF",local_28);
-  iVar1 = strcmp(local_28,"__dso_handle");
-  if ((-1 < iVar1) && (iVar1 = strcmp(local_28,"__dso_handle"), iVar1 < 1)) {
+  __isoc99_scanf("DoYouEven%sCTF",password);
+  Comparistion_diff = strcmp(password,"__dso_handle");
+  if ((-1 < Comparistion_diff) &&
+     (Comparistion_diff = strcmp(password,"__dso_handle"), Comparistion_diff < 1)) {
     printf("Try again!");
     return 0;
   }
-  iVar1 = strcmp(local_28,"_init");
-  if (iVar1 == 0) {
+  Comparistion_diff = strcmp(password,"_init");
+  if (Comparistion_diff == 0) {
     printf("Correct!");
   }
   else {
