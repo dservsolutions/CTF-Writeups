@@ -3,9 +3,7 @@
 ## Hint
 
 Analyze the provided capture for a covert communication channel.
- 
 Identify where the exfiltrated data is being hidden and reassemble it.
- 
 Decode the recovered data and submit the flag.
 
 ## Statement
@@ -14,31 +12,33 @@ Tiny packets. Odd hours. Suspiciously regular. Someone's smuggling out the data 
 
 A short capture from the guest network is all VERA could pull before the connection dropped. Somewhere in that traffic, a quiet little errand is running on a loop, and it isn't part of any service the hotel actually offers.
 
-
-
 ## Challenge Info
 - **Name:** Packet Light
 - **Origin:** Tryhackme 
-- **Category:** Red Team
+- **Category:** Forencics
 - **Date:** 07-30-2026
 
 ## Tools Used
--`gobuster`, `gitdump`, `texteditor`
+-`wireshark`, `t-shark`, ``
 
 ## Findings
 
-### Step 1 — Analisys of the Lab Machine.
+### Step 1 — Opening and checking the packet file.
 
-- After the lab machine loaded and opened the address provided `http://10.144.176.255:8080`
+- After being downloaded the file `traffic.pcapng`, I've opened with wireshark to analize the file.
 
-    ![file](./screenshots/web_page.png)
+    ![file](./screenshots/wireshark.png)
 
-- I've observe non secure webpage. 
+- After opened the file. I start to check the conversations.  
 
-    ![file_analisys](./screenshots/http.png)
+    ![conversation](./screenshots/conversations.png)
 
 
-### Step 2 — Enumerating the directory to find exposed endpoints.
+### Step 2 — Checking the most insterested conversation.
+
+- After checking the conversations the most interesting was based in the number of packets sent between thems.
+
+    ![interested](./screenshots/most_interested.png)
 
 - Applying the following command to inspect the website.
 
