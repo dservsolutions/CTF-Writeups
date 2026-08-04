@@ -40,49 +40,44 @@ A short capture from the guest network is all VERA could pull before the connect
 
     ![interested](./screenshots/most_interested.png)
 
-- Applying the following command to inspect the website.
+- I've applied a filter to see all the conversation between this two IP's.
 
-- Command: `gobuster dir -u http://10.146.174.187:8080/ -w /root/Desktop/Tools/wordlists/SecLists/Discovery/Web-Content/common.txt` part of the result I'll show bellow.
+    ![conversation](./screenshots/filtering.png)
 
-    ![strings_result](./screenshots/gobuster_result.png)
+- After checking the conversations. I've founded a file called `updates.py`.
 
+    ![file](./screenshots/python_packet.png)
 
-### Step 3 — Analysing the endpoint founded. 
+### Step 3 — Checking the stream of the pytho file. 
 
-- After checking the endpoint exposed means that the whole .git object database is likely reached too.
-    This is our entry point.
+- I've decided to open the stream of the file and read the file.
 
-- Verifying it's a readable directory with the following curl command:
-
-    `curl http://10.144.176.255:8080/.git/HEAD` 
-
-- After applying the command we get the following result: 
-
-    `ref: refs/heads/main` Meaning that the objects, refs, and logs are almost certainly fetchable too.
-
-![repo](./screenshots/gitrepo.png)
+    ![python_file](./screenshots/following_stream_of_packet.png)
 
 
-### Step 4 — Dumping the full repo with `git-dumper`.
-
-- Installing the python script:  `pip install git-dumper --break-system-packages`
-
-- Applying the command to dumpt the repo: 
-
-    `git-dumper http://10.144.176.255:8080/.git ./byte-lotus-src`
-
-    ![dump](./screenshots/git_dump_command.png)
-
-- After dumping the repo we found the app 
-
-    ![app](./screenshots/app_downloaded.png)
-
-- Inspecting the Readme file: 
-
-    ![readme_file](./screenshots/flag.png)
-
-### Flag `THM{byt3_l0tus_n3v3r_f0rg3ts}`
+- This is a keylogger: every keystroke gets XOR'd with "H0t3lSt@ff0NlyK3epS3cr3t!", base64-encoded, and smuggled out one character at a time in the Cookie: hotel_sess_state=... header on requests to byte-lotus-hotel.thm:8080
 
 
-    
+### Step 4 — Filtering the cookie in Wireshark.
+
+- I've utilized the following query to filter about the cookie: 
+
+    `http.cookie contains "hotel_sess_state"` and got the result below: 
+
+    ![cookie](./screenshots/cookie.png)
+
+
+### Step 5 — Extracting the cookies values in sequence.
+
+- After checking the cookie packets, I can use tshark from command to dump them all in order, using the following command: 
+
+    `tshark -r capture.pcapng -Y 'http.cookie contains "hotel_sess_state"' -T fields -e http.cookie`
+
+    ![](./screenshots/extrac.png)
+
+
+- After decode each one for each base64 string . I've sort those bytes agains the secret key (H0t3lSt@ff0NlyK3epS3cr3t!) and getting the flag : `THM{V3r4_1s_w4tch1ng_0veR_y0u}`
+
+### Flag THM{V3r4_1s_w4tch1ng_0veR_y0u}
+
 
