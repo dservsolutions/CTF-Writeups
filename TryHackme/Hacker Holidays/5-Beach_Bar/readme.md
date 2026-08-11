@@ -75,6 +75,13 @@ The beachside guest-experience build shipped on a deadline, and the night-shift 
 
     ### First flag (`THM{y4ml_pl4yl1st_pwns_th3_b34ch}`)
 
+### Step 4 — Getting the second flag.
+
+- Getting a better shell with: `python3 -c 'import pty;pty.spawn("/bin/bash")'`
+
+
+stty raw -echo
+
 
 ### Step 4 — Checking the stream of the pytho file. 
 
