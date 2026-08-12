@@ -86,5 +86,3 @@ stty raw -echo
 ### Step 4 — Checking the stream of the pytho file. 
 
 
-
-
